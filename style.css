@@ -1,10 +1,10 @@
 
 @font-face {
-  font-family: 'BNazanin';
-  src: url('https://cdn.fontcdn.ir/Font/Persian/B%20Nazanin/BNazanin.woff') format('woff');
+  font-family: 'Vazir';
+  src: url('https://cdn.fontcdn.ir/Font/Persian/Vazir/Vazir.woff') format('woff');
 }
 html, body, [class*="css"] {
-  font-family: 'BNazanin', sans-serif !important;
+  font-family: 'Vazir', sans-serif !important;
   direction: rtl;
   text-align: right;
   font-size: 14px;

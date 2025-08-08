@@ -3,18 +3,16 @@ import streamlit as st
 import pandas as pd
 import plotly.express as px
 
-# تنظیمات صفحه
 st.set_page_config(page_title="داشبورد هوشمند", layout="wide")
 
-# بارگذاری CSS برای فونت فارسی و راست‌چین
+# بارگذاری CSS سفارشی
 def local_css(file_name):
     with open(file_name, "r", encoding="utf-8") as f:
         st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
 
 local_css("style.css")
 
-# تیتر اصلی
-st.title("TOBE BI داشبورد عملکرد سازمان")
+st.title("📊 داشبورد هوشمند سازمان")
 
 # بارگذاری داده‌ها
 strategic_df = pd.read_excel("full_strategic_model.xlsx", sheet_name="تحلیل_استراتژیک")
@@ -24,76 +22,75 @@ personnel_df = pd.read_excel("full_strategic_model.xlsx", sheet_name="پرسنل
 
 st.markdown("---")
 
-# نمودار ۱: بهره‌وری
-st.subheader("🔹 روند بهره‌وری در بازه‌های زمانی")
-fig1 = px.line(
+# بهره‌وری
+st.subheader("📈 روند بهره‌وری")
+fig1 = px.area(
     strategic_df.sort_values("بازه_شروع"),
     x="بازه_شروع",
     y="بهره‌وری",
-    markers=True,
-    line_shape="spline",
-    title="نمودار بهره‌وری"
+    title="نمودار روند بهره‌وری",
+    markers=True
 )
-fig1.update_layout(font=dict(family='BNazanin', size=14), title_font=dict(size=20), height=400)
+fig1.update_traces(line=dict(width=2), marker=dict(size=6))
+fig1.update_layout(font=dict(family='Vazir', size=14), title_font=dict(size=18), height=380)
 st.plotly_chart(fig1, use_container_width=True)
 
-st.markdown("<br><br>", unsafe_allow_html=True)
+st.markdown("### ")
 
-# نمودار ۲: مصرف منابع
-st.subheader("🔹 میزان مصرف منابع در بازه‌ها")
+# مصرف منابع
+st.subheader("📊 مصرف منابع")
 fig2 = px.bar(
     strategic_df,
     x="بازه_شروع",
     y="منابع",
-    color="منابع",
-    color_continuous_scale="Reds",
-    title="مصرف منابع"
+    title="میزان مصرف منابع",
+    text_auto=True,
+    color_discrete_sequence=["#7E57C2"]
 )
-fig2.update_layout(font=dict(family='BNazanin', size=14), title_font=dict(size=20), height=400)
+fig2.update_layout(font=dict(family='Vazir', size=14), title_font=dict(size=18), height=380)
 st.plotly_chart(fig2, use_container_width=True)
 
-st.markdown("<br><br>", unsafe_allow_html=True)
+st.markdown("### ")
 
-# نمودار ۳: تعداد ریسک‌ها
-st.subheader("🔹 ریسک‌های ثبت‌شده")
+# ریسک‌ها
+st.subheader("⚠️ وضعیت ریسک‌ها")
 fig3 = px.bar(
     risk_df,
     x="بازه_شروع",
     y="تعداد_ریسک",
-    color="تعداد_ریسک",
-    color_continuous_scale="Oranges",
-    title="ریسک‌ها در بازه‌های زمانی"
+    title="ریسک‌ها در بازه‌های زمانی",
+    text_auto=True,
+    color_discrete_sequence=["#FFA000"]
 )
-fig3.update_layout(font=dict(family='BNazanin', size=14), title_font=dict(size=20), height=400)
+fig3.update_layout(font=dict(family='Vazir', size=14), title_font=dict(size=18), height=380)
 st.plotly_chart(fig3, use_container_width=True)
 
-st.markdown("<br><br>", unsafe_allow_html=True)
+st.markdown("### ")
 
-# نمودار ۴: تصمیمات
-st.subheader("🔹 وضعیت تصمیم‌گیری‌ها")
+# تصمیم‌ها
+st.subheader("📌 تصمیم‌گیری‌ها")
 decision_count = decision_df["نتیجه_نهایی"].value_counts()
 fig4 = px.pie(
     names=decision_count.index,
     values=decision_count.values,
-    title="نتیجه تصمیمات"
+    title="وضعیت تصمیمات",
+    hole=0.4
 )
-fig4.update_layout(font=dict(family='BNazanin', size=14), title_font=dict(size=20), height=400)
+fig4.update_layout(font=dict(family='Vazir', size=14), title_font=dict(size=18), height=380)
 st.plotly_chart(fig4, use_container_width=True)
 
-st.markdown("<br><br>", unsafe_allow_html=True)
+st.markdown("### ")
 
-# نمودار ۵: عملکرد پرسنل
-st.subheader("🔹 افراد با عملکرد بالا")
+# عملکرد پرسنل
+st.subheader("👥 عملکرد پرسنل برتر")
 top_people = personnel_df[personnel_df["امتیاز_عملکرد"] >= 80]
 fig5 = px.bar(
     top_people,
     x="نام",
     y="امتیاز_عملکرد",
-    color="امتیاز_عملکرد",
-    color_continuous_scale="Teal",
-    title="پرسنل برتر"
+    title="پرسنل با عملکرد بالا",
+    text_auto=True,
+    color_discrete_sequence=["#009688"]
 )
-fig5.update_layout(font=dict(family='BYEKAN', size=14), title_font=dict(size=20), height=400)
+fig5.update_layout(font=dict(family='Vazir', size=14), title_font=dict(size=18), height=380)
 st.plotly_chart(fig5, use_container_width=True)
-
-st.markdown("<br><br>", unsafe_allow_html=True)
