@@ -14,7 +14,7 @@ def local_css(file_name):
 local_css("style.css")
 
 # تیتر اصلی
-st.title("📊 داشبورد هوشمند عملکرد سازمان")
+st.title("TOBE BI داشبورد عملکرد سازمان")
 
 # بارگذاری داده‌ها
 strategic_df = pd.read_excel("full_strategic_model.xlsx", sheet_name="تحلیل_استراتژیک")
