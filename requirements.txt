@@ -1,1 +1,4 @@
-add dependencies
+streamlit
+pandas
+openpyxl
+plotly
