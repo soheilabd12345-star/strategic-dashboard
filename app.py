@@ -93,7 +93,7 @@ fig5 = px.bar(
     color_continuous_scale="Teal",
     title="پرسنل برتر"
 )
-fig5.update_layout(font=dict(family='BNazanin', size=14), title_font=dict(size=20), height=400)
+fig5.update_layout(font=dict(family='BYEKAN', size=14), title_font=dict(size=20), height=400)
 st.plotly_chart(fig5, use_container_width=True)
 
 st.markdown("<br><br>", unsafe_allow_html=True)
